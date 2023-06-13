@@ -1,4 +1,4 @@
-package Member;
+package member;
 
 public class Member {
 
@@ -11,8 +11,6 @@ public class Member {
         this.password = password;
         this.memberName = memberName;
         this.memberPhoneNum = memberPhoneNum;
-
-
     }
 
     public String getID() {
