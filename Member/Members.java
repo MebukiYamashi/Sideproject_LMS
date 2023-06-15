@@ -15,4 +15,13 @@ public class Members extends ArrayList<Member> {
         return allMembers;
     }
 
+    @Override
+    public String toString() {
+        String toStr = "";
+        for (int i = 0; i < allMembers.size(); i++) {
+            toStr += (allMembers.get(i) + "\n");
+        }
+        return toStr;
+    }
+
 }
