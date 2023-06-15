@@ -15,4 +15,12 @@ public class Books extends ArrayList<Book> {
         return allBooks;
     }
 
+    @Override
+    public String toString() {
+        String toStr = "";
+        for (int i = 0; i < allBooks.size(); i++) {
+            toStr += (allBooks.get(i) + "\n");
+        }
+        return toStr;
+    }
 }
