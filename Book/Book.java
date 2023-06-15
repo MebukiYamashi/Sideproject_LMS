@@ -1,16 +1,28 @@
 package Book;
 
+import java.util.Objects;
+
 public class Book {
 
+    private String bookID;
     private String bookName;
     private String author;
     private String publisher;
-    private String bookID;
 
-    public Book(String bookName, String author, String publisher, String bookID) {
+    public Book() {}
+
+    public Book(String bookID, String bookName, String author, String publisher) {
+        this.bookID = bookID;
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
+    }
+
+    public String getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(String bookID) {
         this.bookID = bookID;
     }
 
@@ -38,11 +50,29 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getBookID() {
-        return bookID;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return bookID.equals(book.bookID) && bookName.equals(book.bookName) && author.equals(book.author) && publisher.equals(book.publisher);
     }
 
-    public void setBookID(String bookID) {
-        this.bookID = bookID;
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookID, bookName, author, publisher);
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookID='" + bookID + '\'' +
+                ", bookName='" + bookName + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                '}';
+    }
+
+
+
 }

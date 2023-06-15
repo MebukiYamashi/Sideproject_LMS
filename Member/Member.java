@@ -1,10 +1,15 @@
 package Member;
 
+import java.util.Objects;
+
 public class Member {
 
     private String ID;
-    private String password;private String memberName;
+    private String password;
+    private String memberName;
     private String memberPhoneNum;
+
+    public Member () {}
 
     public Member(String ID, String password, String memberName, String memberPhoneNum) {
         this.ID = ID;
@@ -44,5 +49,29 @@ public class Member {
     public void setMemberPhoneNum(String memberPhoneNum) {
         this.memberPhoneNum = memberPhoneNum;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(ID, member.ID) && Objects.equals(password, member.password) && Objects.equals(memberName, member.memberName) && Objects.equals(memberPhoneNum, member.memberPhoneNum);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, password, memberName, memberPhoneNum);
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "ID='" + ID + '\'' +
+                ", password='" + password + '\'' +
+                ", memberName='" + memberName + '\'' +
+                ", memberPhoneNum='" + memberPhoneNum + '\'' +
+                '}';
+    }
+
 }
 
