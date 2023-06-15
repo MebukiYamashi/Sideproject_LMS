@@ -5,15 +5,15 @@ import java.util.Objects;
 public class Book {
 
     private String bookID;
-    private String bookName;
+    private String title;
     private String author;
     private String publisher;
 
     public Book() {}
 
-    public Book(String bookID, String bookName, String author, String publisher) {
+    public Book(String bookID, String title, String author, String publisher) {
         this.bookID = bookID;
-        this.bookName = bookName;
+        this.title = title;
         this.author = author;
         this.publisher = publisher;
     }
@@ -26,12 +26,12 @@ public class Book {
         this.bookID = bookID;
     }
 
-    public String getBookName() {
-        return bookName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -55,24 +55,21 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return bookID.equals(book.bookID) && bookName.equals(book.bookName) && author.equals(book.author) && publisher.equals(book.publisher);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(bookID, bookName, author, publisher);
+        return Objects.equals(bookID, book.bookID) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(publisher, book.publisher);
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 "bookID='" + bookID + '\'' +
-                ", bookName='" + bookName + '\'' +
+                ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", publisher='" + publisher + '\'' +
                 '}';
     }
 
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookID, title, author, publisher);
+    }
 }
