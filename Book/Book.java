@@ -1,25 +1,37 @@
 package book;
 
+import java.util.Objects;
+
 public class Book {
 
-    private String bookName;
+    private String bookID;
+    private String title;
     private String author;
     private String publisher;
-    private String bookID;
 
-    public Book(String bookName, String author, String publisher, String bookID) {
-        this.bookName = bookName;
+    public Book() {}
+
+    public Book(String bookID, String title, String author, String publisher) {
+        this.bookID = bookID;
+        this.title = title;
         this.author = author;
         this.publisher = publisher;
+    }
+
+    public String getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(String bookID) {
         this.bookID = bookID;
     }
 
-    public String getBookName() {
-        return bookName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -38,11 +50,26 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getBookID() {
-        return bookID;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(bookID, book.bookID) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && Objects.equals(publisher, book.publisher);
     }
 
-    public void setBookID(String bookID) {
-        this.bookID = bookID;
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookID='" + bookID + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookID, title, author, publisher);
     }
 }
