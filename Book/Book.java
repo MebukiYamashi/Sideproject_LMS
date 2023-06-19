@@ -1,4 +1,4 @@
-package book;
+package Book;
 
 import java.util.Objects;
 
