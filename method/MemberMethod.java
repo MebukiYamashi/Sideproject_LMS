@@ -2,6 +2,8 @@ package method;
 
 import Member.Member;
 import Member.Members;
+import exception.*;
+import exception.message.Message;
 
 import java.util.Scanner;
 
@@ -9,9 +11,21 @@ public class MemberMethod {
     Scanner sc = new Scanner(System.in);
     private final Members allMembers = Members.getInstance();
 
+    String PhoneNumRegex = "^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$";
+
     public void registerMember(String ID, String password, String memberName, String memberPhoneNum) {
         Member member = new Member(ID, password, memberName, memberPhoneNum);
-        allMembers.add(member);
+
+        try {
+            if (memberPhoneNum.matches(PhoneNumRegex)) {
+                allMembers.add(member);
+            } else {
+                throw new ValidationException();
+            }
+        } catch (ValidationException e) {
+            System.out.println(Message.ERR_MSG_VALIDATION_EXCEPTION);
+        }
+
     }
 
     public void findMemberByID() {
