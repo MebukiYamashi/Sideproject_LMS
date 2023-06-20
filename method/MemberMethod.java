@@ -4,7 +4,6 @@ import Member.Member;
 import Member.Members;
 import exception.*;
 import exception.message.Message;
-import jdk.jshell.EvalException;
 
 import java.util.Scanner;
 
@@ -14,18 +13,51 @@ public class MemberMethod {
 
     String phoneNumRegex = "^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$";
 
-    public void registerMember(String ID, String password, String memberName, String memberPhoneNum) {
-        Member member = new Member(ID, password, memberName, memberPhoneNum);
+    public void registerMember() {
+        Member member = new Member();
 
-        try {
-            if (memberPhoneNum.matches(phoneNumRegex)) {
-                allMembers.add(member);
-            } else {
-                throw new ValidationException();
+        // id 입력
+        String id = "";
+        for (int i = 0; i < allMembers.size(); i++) {
+            System.out.print("등록할 회원의 ID를 입력하세요. : ");
+            id = sc.next();
+            try {
+                if (id.equals(allMembers.get(i).getID())) {
+                    throw new DuplicationException();
+                }
+            } catch (DuplicationException e) {
+                System.out.println(Message.ERR_MSG_DUPLICATE_EXCEPTION);
+                i = -1;
             }
-        } catch (ValidationException e) {
-            System.out.println(Message.ERR_MSG_VALIDATION_EXCEPTION);
         }
+        member.setID(id);
+
+        // 비밀번호 입력
+        System.out.print("등록할 회원의 비밀번호를 입력하세요. : ");
+        member.setPassword(sc.next());
+
+        // 이름 입력
+        System.out.print("등록할 회원의 이름을 입력하세요. : ");
+        member.setMemberName(sc.next());
+
+        // 전화번호 입력
+        while (true) {
+            System.out.print("등록할 회원의 전화번호를 입력하세요. : ");
+            try {
+                String phoneNum = sc.next();
+                if (phoneNum.matches(phoneNumRegex)) {
+                    member.setMemberPhoneNum(phoneNum);
+                    allMembers.add(member);
+                    break;
+                } else {
+                    throw new ValidationException();
+                }
+            } catch (ValidationException e) {
+                System.out.println(Message.ERR_MSG_VALIDATION_EXCEPTION);
+            }
+        }
+        System.out.println("회원 등록이 완료되었습니다.");
+        System.out.println(allMembers);
 
     }
 
