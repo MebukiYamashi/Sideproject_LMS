@@ -4,6 +4,7 @@ import Member.Member;
 import Member.Members;
 import exception.*;
 import exception.message.Message;
+import jdk.jshell.EvalException;
 
 import java.util.Scanner;
 
@@ -11,13 +12,13 @@ public class MemberMethod {
     Scanner sc = new Scanner(System.in);
     private final Members allMembers = Members.getInstance();
 
-    String PhoneNumRegex = "^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$";
+    String phoneNumRegex = "^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$";
 
     public void registerMember(String ID, String password, String memberName, String memberPhoneNum) {
         Member member = new Member(ID, password, memberName, memberPhoneNum);
 
         try {
-            if (memberPhoneNum.matches(PhoneNumRegex)) {
+            if (memberPhoneNum.matches(phoneNumRegex)) {
                 allMembers.add(member);
             } else {
                 throw new ValidationException();
@@ -55,19 +56,30 @@ public class MemberMethod {
         String chooseNum = sc.next();
         switch ( chooseNum ) {
             case "1" :
-                System.out.println("이름을 다시 입력하세요.");
+                System.out.println("이름을 입력하세요.");
                 String name = sc.next();
                 updateMember.setMemberName(name);
                 break;
             case "2" :
-                System.out.println("전화번호를 다시 입력하세요.");
-                String phoneNum = sc.next();
-                updateMember.setMemberName(phoneNum);
+                while (true) {
+                    System.out.println("전화번호를 입력하세요.");
+                    String phoneNum = sc.next();
+                    try {
+                        if (phoneNum.matches(phoneNumRegex)) {
+                            updateMember.setMemberPhoneNum(phoneNum);
+                            break;
+                        } else {
+                            throw new ValidationException();
+                        }
+                    } catch (ValidationException e) {
+                        System.out.println(Message.ERR_MSG_VALIDATION_EXCEPTION);
+                    }
+                }
                 break;
             case "3" :
-                System.out.println("비밀번호를 다시 입력하세요.");
+                System.out.println("비밀번호를 입력하세요.");
                 String password = sc.next();
-                updateMember.setMemberName(password);
+                updateMember.setPassword(password);
                 break;
         }
 
